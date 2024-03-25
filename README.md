@@ -9,3 +9,6 @@ Plotting: Plots the moving averages on the chart for visual reference.
 Adjust parameters and add further customization as needed to optimize the strategy for your trading preferences and market conditions.
 
 ![image](https://github.com/AbhrajitGhosh2001/Pinescript-Trading-Script-3x-in-one-week-on-solana/assets/64371041/4cc2afe3-2ccb-4010-a4e6-33a00397cda5)
+![image](https://github.com/AbhrajitGhosh2001/Pinescript-Trading-Script-3x-in-one-week-on-solana/assets/64371041/2cb4046e-5a9c-45be-bb68-d4da0f5a5153)
+![image](https://github.com/AbhrajitGhosh2001/Pinescript-Trading-Script-3x-in-one-week-on-solana/assets/64371041/1b6e17ea-efcb-40e3-a928-39571fd85270)
+![image](https://github.com/AbhrajitGhosh2001/Pinescript-Trading-Script-3x-in-one-week-on-solana/assets/64371041/fbbccdc3-e898-4ed6-a872-d5326b2efa76)
