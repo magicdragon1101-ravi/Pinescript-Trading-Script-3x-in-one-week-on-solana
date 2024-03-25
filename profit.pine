@@ -1,0 +1,51 @@
+//@version=5
+strategy("Combined Strategy", overlay=true)
+
+// Input variables
+ma1_length = input.int(title='MA1 Length', defval=20, minval=1)
+ma2_length = input.int(title='MA2 Length', defval=50, minval=1)
+stoch_length = input.int(title='Stochastic RSI Length', defval=14, minval=1)
+overbought = input(title='Overbought Level', defval=80)
+oversold = input(title='Oversold Level', defval=20)
+
+// Calculate moving averages
+ma1 = ta.sma(close, ma1_length)
+ma2 = ta.sma(close, ma2_length)
+
+// Calculate Stochastic RSI
+rsi1 = ta.rsi(close, stoch_length)
+rsiH = ta.highest(rsi1, stoch_length)
+rsiL = ta.lowest(rsi1, stoch_length)
+stoch = (rsi1 - rsiL) / (rsiH - rsiL) * 100
+
+// Determine trend direction based on MA crossover
+trendUp = ma1 > ma2 ? true : false
+trendDown = ma1 < ma2 ? true : false
+
+// Initialize flag variables
+var hasBoughtSignal = false
+var hasSoldSignal = false
+
+// Generate signals
+if trendUp and ta.crossover(stoch, oversold) and not hasBoughtSignal
+    strategy.entry('Buy', strategy.long)
+    hasBoughtSignal := true
+    hasSoldSignal := false
+
+if trendDown and ta.crossunder(stoch, overbought) and not hasSoldSignal
+    strategy.entry('Sell', strategy.short)
+    hasBoughtSignal := false
+    hasSoldSignal := true
+
+// Set stop loss and take profit levels
+if strategy.position_size != 0
+    if strategy.position_size > 0
+        strategy.exit('StopLoss', 'Buy', stop=ma2, qty_percent=100)
+        strategy.exit('TakeProfit', 'Sell', limit=close - (ma2 - close), qty_percent=100)
+    else
+        strategy.exit('StopLoss', 'Sell', stop=ma2, qty_percent=100)
+        strategy.exit('TakeProfit', 'Buy', limit=close + (close - ma2), qty_percent=100)
+
+// Plot moving averages on chart
+plot(ma1, color=color.new(color.blue, 0))
+plot(ma2, color=color.new(color.orange, 0))
